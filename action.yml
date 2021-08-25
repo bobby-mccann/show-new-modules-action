@@ -1,0 +1,16 @@
+name: 'Show new modules'
+description: 'Show any new modules'
+inputs:
+  branch:  # branch to track modules for
+    description: 'Branch'
+    required: true
+    default: 'master'
+outputs:
+  new-modules: # id of output
+    value: 'haha'
+    description: 'The new modules that are used'
+runs:
+  using: 'composite'
+  steps:
+    - run: echo ${{ env.GITHUB_REF }}
+      shell: bash
