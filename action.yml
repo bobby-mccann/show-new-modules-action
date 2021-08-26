@@ -12,5 +12,6 @@ outputs:
 runs:
   using: 'composite'
   steps:
-    - run: echo $GITHUB_REF
+    - uses: actions/checkout@v2
+    - run: ls -R /secure/**/**.pm ~/Code/secure/**/**.pl | ${{github.action_path}}/find_use.pl | sort | uniq
       shell: bash
