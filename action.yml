@@ -23,6 +23,7 @@ runs:
       uses: actions/checkout@v2
       with:
         path: compare
+        ref: ${{ github.ref }}
     - run: ls -R compare/**/**.pm compare/**/**.pl | ${{github.action_path}}/find_use.pl | sort | uniq > after.lst
       shell: bash
     - id: diff
