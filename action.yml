@@ -10,6 +10,9 @@ runs:
   steps:
     - name: checkout
       uses: actions/checkout@v2
+    - name: list files
+      run: ls -R **/**.pm **/**.pl
+      shell: bash
     - run: ls -R **/**.pm **/**.pl | ${{github.action_path}}/find_use.pl | sort | uniq > before.lst
       shell: bash
     - run: cat before.lst
