@@ -23,8 +23,8 @@ runs:
       shell: bash
     - run: ls -R **/**.pm **/**.pl | ${{github.action_path}}/find_use.pl | sort | uniq > after.lst
       shell: bash
+    - run: cat after.lst
+      shell: bash
     - id: diff
       run: diff before.lst after.lst
-      shell: bash
-    - run: cat after.lst
       shell: bash
