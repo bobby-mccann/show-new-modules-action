@@ -6,7 +6,7 @@ my $files_scanned = 0;
 
 while (<STDIN>) {
     chomp;
-    open(FH, '<', $_) or die;
+    open(FH, '<', $_) or next;
     while (<FH>) {
         if (/^use (.+);/ && !/^use (warnings|strict)/) {
             print ($1 . "\n") if defined $1;
