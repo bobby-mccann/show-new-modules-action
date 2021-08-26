@@ -7,11 +7,24 @@ inputs:
     default: 'master'
 outputs:
   new-modules: # id of output
-    value: '${{ github.ref }}'
+    value: '${{ steps.diff.outputs }}'
     description: 'The new modules that are used'
 runs:
   using: 'composite'
   steps:
-    - uses: actions/checkout@v2
-    - run: ls -R /secure/**/**.pm ~/Code/secure/**/**.pl | ${{github.action_path}}/find_use.pl | sort | uniq
+    - name: checkout
+      uses: actions/checkout@v2
+      with:
+        ref: ${{ inputs.branch }}
+        path: secure
+    - run: ls -R secure/**/**.pm secure/**/**.pl | ${{github.action_path}}/find_use.pl | sort | uniq > before.lst
+      shell: bash
+    - name: checkout
+      uses: actions/checkout@v2
+      with:
+        path: compare
+    - run: ls -R compare/**/**.pm compare/**/**.pl | ${{github.action_path}}/find_use.pl | sort | uniq > after.lst
+      shell: bash
+    - id: diff
+      run: echo "::set-output diff=`diff before.lst after.lst`"
       shell: bash
