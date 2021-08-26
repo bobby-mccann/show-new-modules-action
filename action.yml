@@ -5,10 +5,6 @@ inputs:
     description: 'Branch'
     required: true
     default: 'master'
-outputs:
-  new-modules: # id of output
-    value: '${{ steps.diff.outputs }}'
-    description: 'The new modules that are used'
 runs:
   using: 'composite'
   steps:
@@ -27,5 +23,5 @@ runs:
     - run: ls -R compare/**/**.pm compare/**/**.pl | ${{github.action_path}}/find_use.pl | sort | uniq > after.lst
       shell: bash
     - id: diff
-      run: echo "::set-output diff=`diff before.lst after.lst`"
+      run: diff before.lst after.lst
       shell: bash
