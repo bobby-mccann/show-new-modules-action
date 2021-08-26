@@ -10,18 +10,16 @@ runs:
   steps:
     - name: checkout
       uses: actions/checkout@v2
-      with:
-        ref: ${{ inputs.branch }}
-        path: secure
-    - run: ls -R secure/**/**.pm secure/**/**.pl | ${{github.action_path}}/find_use.pl | sort | uniq > before.lst
+    - run: ls -R **/**.pm **/**.pl | ${{github.action_path}}/find_use.pl | sort | uniq > before.lst
       shell: bash
-    - name: checkout
-      uses: actions/checkout@v2
-      with:
-        path: compare
-        ref: ${{ github.ref }}
-    - run: ls -R compare/**/**.pm compare/**/**.pl | ${{github.action_path}}/find_use.pl | sort | uniq > after.lst
+    - run: git checkout ${{github.ref}}
+      shell: bash
+    - run: ls -R **/**.pm **/**.pl | ${{github.action_path}}/find_use.pl | sort | uniq > after.lst
       shell: bash
     - id: diff
       run: diff before.lst after.lst
+      shell: bash
+    - run: echo before `wc -l before.lst`
+      shell: bash
+    - run: echo after `wc -l after.lst`
       shell: bash
