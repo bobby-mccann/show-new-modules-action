@@ -10,6 +10,8 @@ runs:
   steps:
     - name: checkout
       uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
     - name: list files
       run: ls -R **/**.pm **/**.pl
       shell: bash
