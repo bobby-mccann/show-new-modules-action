@@ -12,5 +12,5 @@ outputs:
 runs:
   using: 'composite'
   steps:
-    - run: echo ${{ github.ref }}
+    - run: echo $GITHUB_REF
       shell: bash
