@@ -14,15 +14,15 @@ runs:
         fetch-depth: 0
         path: repo
     - name: list files
-      run: ls -R repo/**/**.pm repo/**/**.pl
+      run: ls -R repo/**/*.pm repo/**/*.pl
       shell: bash
-    - run: ls -R repo/**/**.pm repo/**/**.pl | ${{github.action_path}}/find_use.pl | sort | uniq > before.lst
+    - run: ls -R repo/**/*.pm repo/**/*.pl | ${{github.action_path}}/find_use.pl | sort | uniq > before.lst
       shell: bash
     - run: cat before.lst
       shell: bash
     - run: git checkout ${{github.ref}}
       shell: bash
-    - run: ls -R repo/**/**.pm repo/**/**.pl | ${{github.action_path}}/find_use.pl | sort | uniq > after.lst
+    - run: ls -R repo/**/*.pm repo/**/*.pl | ${{github.action_path}}/find_use.pl | sort | uniq > after.lst
       shell: bash
     - run: cat after.lst
       shell: bash
